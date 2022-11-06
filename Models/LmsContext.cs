@@ -12,8 +12,9 @@ namespace LMSProject.Models
         public DbSet<Login> Logins { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
 
-        public DbSet<UserLoan> UserLoans { get; set; }
         public DbSet<LoanDetails> LoanDetails { get; set; }
+        public DbSet<Documents> Documents { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

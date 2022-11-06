@@ -13,12 +13,24 @@ namespace LMSProject.Services
         }
         public UserDetails Add(UserDetails item)
         {
-            try
+            /*try
+            {
+                _context.Add(item);
+                _context.SaveChanges();
+                return item;
+            }*/
+            try { 
+            var user = _context.Logins.SingleOrDefault(x => x.Username == item.UserName);
+            var check = _context.UserDetails.SingleOrDefault(x => x.UserName == item.UserName);
+
+            if (user != null && check == null)
             {
                 _context.Add(item);
                 _context.SaveChanges();
                 return item;
             }
+            return null;
+        }
             catch (Exception e)
             {
 
@@ -82,7 +94,7 @@ namespace LMSProject.Services
                     emp.Phone_No = item.Phone_No;
                     emp.City = item.City;
                     emp.District = item.District;
-                    emp.UserName = item.UserName;
+                   /* emp.UserName = item.UserName;*/
                     _context.SaveChanges();
                     return emp;
                 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\DOT NET Programming\\LMS project\\LMSProject\\LMSProject.csproj": {}
+    "D:\\VisualStudios\\LMSProject\\LMSProject.csproj": {}
   },
   "projects": {
-    "F:\\DOT NET Programming\\LMS project\\LMSProject\\LMSProject.csproj": {
+    "D:\\VisualStudios\\LMSProject\\LMSProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\DOT NET Programming\\LMS project\\LMSProject\\LMSProject.csproj",
+        "projectUniqueName": "D:\\VisualStudios\\LMSProject\\LMSProject.csproj",
         "projectName": "LMSProject",
-        "projectPath": "F:\\DOT NET Programming\\LMS project\\LMSProject\\LMSProject.csproj",
-        "packagesPath": "C:\\Users\\vbhv\\.nuget\\packages\\",
-        "outputPath": "F:\\DOT NET Programming\\LMS project\\LMSProject\\obj\\",
+        "projectPath": "D:\\VisualStudios\\LMSProject\\LMSProject.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudios\\LMSProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vbhv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[6.0.10, )"
             },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.10, )"
@@ -55,6 +59,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.10, )"
             },

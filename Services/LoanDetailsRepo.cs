@@ -2,7 +2,8 @@
 
 namespace LMSProject.Services
 {
-    public class LoanDetailsRepo : IRepo<int, LoanDetails>
+    /* public class LoanDetailsRepo : IRepo<int, LoanDetails>*/
+    public class LoanDetailsRepo : ILoan<int, LoanDetails>
     {
 
         private readonly LmsContext _context;
@@ -13,11 +14,23 @@ namespace LMSProject.Services
         }
         public LoanDetails Add(LoanDetails item)
         {
-            try
+            /*try
             {
                 _context.Add(item);
                 _context.SaveChanges();
                 return item;
+            }*/
+            try
+            {
+                var loans = _context.UserDetails.SingleOrDefault(x => x.UserName == item.UserName);
+                var checkAadhar = _context.Documents.SingleOrDefault(x=>x.UserName==item.UserName);
+                if (loans != null && checkAadhar!=null)
+                {
+                    _context.Add(item);
+                    _context.SaveChanges();
+                    return item;
+                }
+                return null;
             }
             catch (Exception e)
             {
@@ -28,14 +41,14 @@ namespace LMSProject.Services
 
         public LoanDetails Delete(int key)
         {
-            var emp = Get(key);
-            if (emp != null)
+            var loan = Get(key);
+            if (loan != null)
             {
                 try
                 {
-                    _context.LoanDetails.Remove(emp);
+                    _context.LoanDetails.Remove(loan);
                     _context.SaveChanges();
-                    return emp;
+                    return loan;
                 }
                 catch (Exception e)
                 {
@@ -49,12 +62,12 @@ namespace LMSProject.Services
 
         public LoanDetails Get(int key)
         {
-            var emp = _context.LoanDetails.FirstOrDefault(e => e.LoanId == key);
-            if (emp != null)
+            var loan = _context.LoanDetails.FirstOrDefault(e => e.LoanId == key);
+            if (loan != null)
             {
                 try
                 {
-                    return emp;
+                    return loan;
                 }
                 catch (Exception e)
                 {
@@ -65,24 +78,46 @@ namespace LMSProject.Services
 
         public ICollection<LoanDetails> GetAll()
         {
-            var employees = _context.LoanDetails.ToList();
-            return employees;
+            var loan = _context.LoanDetails.ToList();
+            return loan;
         }
 
         public LoanDetails Update(LoanDetails item)
         {
 
-            var emp = Get(item.LoanId);
-            if (emp != null)
+            var loan = Get(item.LoanId);
+            if (loan != null)
             {
                 try
                 {
-                    emp.Amount = item.Amount;
-                    emp.DateTime = item.DateTime;
-                    emp.LoanType = item.LoanType;
-                    emp.UserName = item.UserName;
+                    loan.Amount = item.Amount;
+                    loan.currentdate = item.currentdate;
+                    loan.LoanType = item.LoanType;
+                  
+                  /* loan.LoanStatus = item.LoanStatus;*/
+
                     _context.SaveChanges();
-                    return emp;
+                    return loan;
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+            }
+            return null;
+        }
+
+        public LoanDetails UpdateStatus(LoanDetails item)
+        {
+            var user = Get(item.LoanId);
+            if (user != null)
+            {
+                try
+                {
+                    user.LoanStatus = item.LoanStatus;
+                    _context.SaveChanges();
+                    return user;
                 }
                 catch (Exception e)
                 {

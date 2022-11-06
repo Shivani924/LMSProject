@@ -22,6 +22,25 @@ namespace LMSProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("LMSProject.Models.Documents", b =>
+                {
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AadharNo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DL_No")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PanNo")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserName");
+
+                    b.ToTable("Documents");
+                });
+
             modelBuilder.Entity("LMSProject.Models.LoanDetails", b =>
                 {
                     b.Property<int>("LoanId")
@@ -33,16 +52,19 @@ namespace LMSProject.Migrations
                     b.Property<float>("Amount")
                         .HasColumnType("real");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("LoanStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LoanType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("currentdate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LoanId");
 
@@ -67,7 +89,6 @@ namespace LMSProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Username");
@@ -107,7 +128,6 @@ namespace LMSProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -117,33 +137,15 @@ namespace LMSProject.Migrations
                     b.ToTable("UserDetails");
                 });
 
-            modelBuilder.Entity("LMSProject.Models.UserLoan", b =>
+            modelBuilder.Entity("LMSProject.Models.Documents", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("LMSProject.Models.Login", "login")
+                        .WithMany()
+                        .HasForeignKey("UserName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("LoanDetails_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LoanNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LoanStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LoanDetails_Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserLoans");
+                    b.Navigation("login");
                 });
 
             modelBuilder.Entity("LMSProject.Models.LoanDetails", b =>
@@ -161,28 +163,9 @@ namespace LMSProject.Migrations
                 {
                     b.HasOne("LMSProject.Models.Login", "login")
                         .WithMany()
-                        .HasForeignKey("UserName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserName");
 
                     b.Navigation("login");
-                });
-
-            modelBuilder.Entity("LMSProject.Models.UserLoan", b =>
-                {
-                    b.HasOne("LMSProject.Models.LoanDetails", "loanDetails")
-                        .WithMany()
-                        .HasForeignKey("LoanDetails_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMSProject.Models.UserDetails", "userDetails")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("loanDetails");
-
-                    b.Navigation("userDetails");
                 });
 #pragma warning restore 612, 618
         }

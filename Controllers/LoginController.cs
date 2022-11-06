@@ -1,10 +1,12 @@
 ﻿using LMSProject.Models;
 using LMSProject.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMSProject.Controllers
 {
+    [EnableCors("MyCors")]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase

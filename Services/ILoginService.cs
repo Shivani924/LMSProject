@@ -9,7 +9,11 @@ namespace LMSProject.Services
 
         /* bool Login(LoginDTO user);
          bool Register(UserPassDTO user);*/
-        LoginDTO Login(LoginDTO user);
+        /*This upper code is junk vaibhav*/
+
+
+        /*LoginDTO Login(LoginDTO user);*/
+        Login Login(LoginDTO user);
         LoginDTO Register(UserPassDTO user);
     }
 }

@@ -14,6 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCors", opts =>
+        {
+            opts.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+        });
+});
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -28,12 +37,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddDbContext<LmsContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("LmsCon"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("Loandb"));
 });
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IRepo<int, UserDetails>, UserDetailsRepo>();
-builder.Services.AddScoped<IRepo<int, LoanDetails>, LoanDetailsRepo>();
-builder.Services.AddScoped<IRepo<int, UserLoan>, UserLoanRepo>();
+builder.Services.AddScoped<IRepo<string, Documents>, DocumentsRepo>();
+builder.Services.AddScoped<ILoan<int, LoanDetails>, LoanDetailsRepo>();
 builder.Services.AddScoped<IRepo<string, Login>, LoginRepo>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
@@ -48,6 +57,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthentication();
+app.UseCors("MyCors");
 app.UseAuthorization();
 
 app.MapControllers();

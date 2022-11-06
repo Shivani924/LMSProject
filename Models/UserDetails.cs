@@ -15,7 +15,7 @@ namespace LMSProject.Models
         public string City { get; set; }
 
         public string District { get; set; }
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
         [ForeignKey("UserName")]
         public Login? login { get; set; }
     }
